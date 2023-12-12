@@ -1,0 +1,84 @@
+.delete-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 285px auto;
+  padding: 25px;
+  min-height: 215px;
+}
+
+.delete-modal__close {
+  align-self: flex-end;
+  outline: none;
+  transition: color .3s ease-in-out;
+}
+
+.delete-modal__title {
+  margin: 0;
+  margin-bottom: 11px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.delete-modal__text {
+  margin: 0;
+  margin-bottom: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 275px;
+  text-align: center;
+}
+
+.delete-modal__btn-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete-modal__btn-delete {
+  position: relative;
+  margin-bottom: 5px;
+  padding: 17px 35px;
+  font-weight: 600;
+  background-color: #9873FF;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .3s ease-in-out;
+}
+
+.delete-modal__btn-delete:focus-visible {
+  outline: 2px solid #9873FF;
+  outline-offset: 3px;
+}
+
+.delete-modal__btn-delete:hover {
+  background-color: #ad8ffe;
+  color: #fff;
+}
+
+.delete-modal__btn-delete:active {
+  background-color: #8052FF;
+  color: #fff;
+}
+
+.delete-modal__btn-cancel {
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+  transition: color .3s ease-in-out, border-color .3s ease-in-out;
+}
+
+.delete-modal__btn-cancel:focus-visible {
+  outline: 2px solid #9873FF;
+  outline-offset: 2px;
+}
+
+.delete-modal__btn-cancel:hover {
+  color: #9873FF;
+  border-color: #9873FF;
+}
+
+.delete-modal__btn-cancel:active {
+  color: #333;
+  border-color: #333;
+}

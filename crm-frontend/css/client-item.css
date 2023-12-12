@@ -1,0 +1,167 @@
+.clients__table {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.clients__item {
+  display: flex;
+  padding: 18px;
+  border-bottom: 1px solid var(--color-contacts-bg);
+  background-color: var(--color-white);
+}
+
+.client__id {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  width: 7%;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.clients__fullname {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  width: 32%;
+  font-size: 14px;
+  color: var(--color-black333);
+}
+
+.clients__fullname span {
+  display: inline-block;
+}
+
+.clients__fullname span:not(:last-child) {
+  margin-right: 5px;
+}
+
+.clients__created {
+  margin-right: 10px;
+  width: 15%;
+}
+
+.clients__updated {
+  margin-right: 10px;
+  width: 15%;
+}
+
+.created__date,
+.updated__date {
+  margin-right: 7px;
+  font-size: 14px;
+  color: var(--color-black333);
+}
+
+.created__time,
+.updated__time {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.clients__contacts {
+  margin-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -10px 30px -17px 0;
+  max-width: 120px;
+  min-width: 120px;
+}
+
+.contact__link {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.contact__link g,
+.contact__link path {
+  transition: opacity .3s ease-in-out;
+}
+
+.contact__link g:hover,
+.contact__link path:hover {
+  opacity: 1;
+}
+
+.contact__link:not(:last-child) {
+  margin-right: 7px;
+}
+
+.clients__actions {
+  display: flex;
+  align-items: center;
+}
+
+.clients__actions button {
+  display: inline-block;
+  padding-left: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-color: transparent;
+  color: var(--color-black333);
+}
+
+.clients__edit {
+  position: relative;
+  margin-right: 32px;
+  background-image: url('../img/change-pic.svg');
+  transition: color .3s ease-in-out;
+}
+
+.clients__edit:hover {
+  color: var(--color-heliotrope)
+}
+
+.clients__delete {
+  position: relative;
+  background-image: url('../img/delete-pic.svg');
+  transition: color .3s ease-in-out;
+}
+
+.clients__delete:hover {
+  color: var(--color-heliotrope)
+}
+
+.action-load {
+  background-image: none;
+}
+
+.actions__spinner {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  animation: spinner .3s ease-in-out;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.actions__spinner--change {
+  stroke: var(--color-heliotrope);
+}
+
+.actions__spinner--delete {
+  stroke: var(--color-del-contact-hover);
+}
+
+.actions__spinner svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
