@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'Open-Sans';
+  src: local('OpenSans-Bold'),
+    url('../fonts/OpenSans-Bold.woff2') format('woff2'),
+    url('../fonts/OpenSans-Bold.woff') format('woff');
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open-Sans';
+  src: local('OpenSans-SemiBold'),
+    url('../fonts/OpenSans-SemiBold.woff2') format('woff2'),
+    url('../fonts/OpenSans-SemiBold.woff') format('woff');
+  font-display: swap;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open-Sans';
+  src: local('OpenSans-Regular'),
+    url('../fonts/OpenSans-Regular.woff2') format('woff2'),
+    url('../fonts/OpenSans-Regular.woff') format('woff');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --color-white: #ffffff;
+  --body-bg-color: #f5f5f5;
+  --text-color: #b0b0b0;
+  --color-black333: #333;
+  --color-heliotrope: #9873ff;
+  --color-heliotrope-hover: #ad8ffe;
+  --color-heliotrope-active: #8052ff;
+  --color-contacts-bg: #c8c5d1;
+  --color-modal-spinner: #b89eff;
+  --color-contacts-bg-active: #f4f3f6;
+  --color-bg-contact-item: #e7e5eb;
+  --color-del-contact-hover: #f06a4d;
+
+}
+
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: 'Open-Sans', sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  background: var(--body-bg-color);
+  color: var(--color-black333);
+}
+
+.container {
+  max-width: 1216px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.list-reset {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.btn-reset {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.site-tooltip {
+  position: absolute;
+  padding: 7px 15px;
+  top: -41px;
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  font-weight: 700;
+  transform: translateX(-50%);
+  transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+  background-color: var(--color-black333);
+}
+
+.site-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  clip-path: polygon(100% 0, 0 0, 51% 100%);
+  background-color: var(--color-black333);
+}
+
+.site-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  overflow-x: auto;
+  background: #00000080;
+  opacity: 0;
+}
+
+.modal__content-active {
+  cursor: auto;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.20);
+  background-color: var(--color-white);
+  opacity: 0;
+}
+
+

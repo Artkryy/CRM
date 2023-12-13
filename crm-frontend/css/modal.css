@@ -1,0 +1,291 @@
+.modal-active {
+  animation: appearance .1s ease-in-out .1s forwards;
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal__close-change {
+  position: absolute;
+  float: right;
+  cursor: pointer;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
+.modal__close-change:focus-visible {
+  outline: 2px solid var(--color-heliotrope);
+  outline-offset: 1px;
+}
+
+.modal__close-change::before,
+.modal__close-change::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-black333);
+  transition: background-color .3s ease-in-out;
+}
+
+.modal__close-change::before {
+  transform: rotate(45deg);
+}
+
+.modal__close-change:hover::before {
+  background-color: var(--color-heliotrope);
+}
+
+.modal__close-change:active::before {
+  background-color: var(--color-black333);
+}
+
+.modal__close-change::after {
+  transform: rotate(-45deg)
+}
+
+.modal__close-change:hover::after {
+  background-color: var(--color-heliotrope);
+}
+
+.modal__close-change:active::after {
+  background-color: var(--color-black333);
+}
+
+.modal__title {
+  margin: 0;
+  margin-bottom: 32px;
+  font-size: 18px;
+}
+
+.modal-edit__id {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.form-float {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.form-float:nth-child(3n) {
+  margin-bottom: 25px;
+}
+
+.form-float>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  font-size: 14px;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  color: var(--text-color);
+}
+
+.form-float>.modal-inp:focus~label,
+.form-float>.modal-inp:not(:placeholder-shown)~label {
+  top: -10px;
+  transform: scale(.85) translate(.15rem, -.5rem);
+}
+
+.modal-inp {
+  display: block;
+  width: 100%;
+  height: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--color-contacts-bg);
+}
+
+.modal-inp::placeholder {
+  font-size: 0;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__contact-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  background-color: var(--color-contacts-bg);
+}
+
+.form__add-contact-btn {
+  position: relative;
+  padding-left: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  color: var(--color-black333);
+  transition: color .3s ease-in-out;
+}
+
+.form__add-contact-btn:focus-visible {
+  outline: 2px solid var(--color-heliotrope);
+  outline-offset: 2px;
+}
+
+.form__add-contact-btn:hover {
+  color: var(--color-heliotrope);
+  transition: color .3s ease-in-out;
+}
+
+.form__add-contact-btn.form__add-contact-btn--active {
+  display: flex;
+}
+
+.form__btn-svg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  fill: var(--color-heliotrope);
+}
+
+.form__btn-svg--hover,
+.form__btn-svg--default {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+}
+
+.form__btn-svg--hover.form__btn-svg--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+}
+
+.form__btn-svg--default.form__btn-svg--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease-in-out, visibility .3s ease-in-out;
+}
+
+.form__wrap-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form__save-btn {
+  position: relative;
+  margin-bottom: 5px;
+  padding: 17px 35px;
+  background-color: var(--color-heliotrope);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color .3s ease-in-out;
+}
+
+.form__save-btn:focus-visible {
+  outline: 2px solid var(--color-heliotrope);
+  outline-offset: 3px;
+}
+
+.form__save-btn:hover {
+  background-color: var(--color-heliotrope-hover);
+  color: var(--color-white);
+}
+
+.form__save-btn:active {
+  background-color: var(--color-heliotrope-active);
+  color: var(--color-white);
+}
+
+.form__cancel-btn {
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-black333);
+  transition: color .3s ease-in-out, border-color .3s ease-in-out;
+}
+
+.form__cancel-btn:focus-visible {
+  outline: 2px solid var(--color-heliotrope);
+  outline-offset: 2px;
+}
+
+.form__cancel-btn:hover {
+  color: var(--color-heliotrope);
+  border-color: var(--color-heliotrope);
+}
+
+.form__cancel-btn:active {
+  color: var(--color-black333);
+  border-color: var(--color-black333);
+}
+
+.modal__error {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 10px;
+  max-width: 255px;
+  line-height: normal;
+  font-size: 10px;
+  color: var(--color-del-contact-hover);
+}
+
+.modal__spinner {
+  position: absolute;
+  display: none;
+  top: 17px;
+  left: 17px;
+  animation: spinner .3s ease-in-out;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  stroke: var(--color-modal-spinner);
+}
+
+.modal__spinner svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
