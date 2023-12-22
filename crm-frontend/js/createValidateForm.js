@@ -1,92 +1,71 @@
-export const validateClientForm = () => {
-  const clientSurname = document.getElementById("formFloatSurname"),
-    clientName = document.getElementById("formFloatName"),
-    clientLastName = document.getElementById("formFloatLastName"),
-    unacceptableLetter = document.getElementById("unacceptableLetter"),
-    writeSurname = document.getElementById("writeSurname"),
-    writeName = document.getElementById("writeName"),
-    writeLastName = document.getElementById("writeLastName"),
-    requiredValue = document.getElementById("requiredValue");
+const createErrorMessage = (errorText) => {
+  const errorMessage = document.createElement("span");
 
-  const validateArr = [
-    unacceptableLetter,
-    writeSurname,
-    writeName,
-    writeLastName,
-    requiredValue,
-  ];
+  errorMessage.classList.add("error");
+
+  errorMessage.textContent = errorText;
+
+  return errorMessage;
+};
+
+const showErrMessage = (errContainer, errElem, inp) => {
+  inp.classList.add("err-mes");
+  errContainer.append(errElem);
+};
+
+const cleanErrMessage = (container, inp) => {
+  if (inp.classList.contains("err-mes")) {
+    const errMessEl = container.querySelector(".error");
+    inp.classList.remove("err-mes");
+    errMessEl.remove();
+  }
+};
+
+export const showErrorsMessages = (inputs, errors = []) => {
+  for (const input of inputs) {
+    const errorBlock = document.querySelector(".modal__error");
+    const hasErr = errors.find((err) => input.id === err.field);
+
+    if (hasErr) {
+      input.style.borderColor = "var(--color-del-contact-hover)";
+      cleanErrMessage(errorBlock, input);
+
+      const errElem = createErrorMessage(hasErr.message);
+      showErrMessage(errorBlock, errElem, input);
+    } else {
+      cleanErrMessage(errorBlock, input);
+      input.style.borderColor = "var(--color-contacts-bg)";
+    }
+  }
+};
+
+export const validateClientForm = () => {
+  const clientSurname = document.getElementById("surname"),
+    clientName = document.getElementById("name"),
+    clientLastName = document.getElementById("lastName"),
+    unacceptableLetter = document.getElementById("unacceptableLetter");
+
   const regexp = /[^а-яА-ЯёЁ]+$/g;
 
-  const onInputValue = (input) => {
-    input.addEventListener("input", () => {
-      input.style.borderColor = "var(--color-contacts-bg)";
-      for (const item of validateArr) {
-        item.textContent = "";
-      }
-    });
-
-    input.oncut =
-      input.oncopy =
-      input.onpaste =
-        () => {
-          input.style.borderColor = "var(--color-contacts-bg)";
-          for (const item of validateArr) {
-            item.textContent = "";
-          }
-        };
-
-    input.onchange = () => {
-      input.style.borderColor = "var(--color-contacts-bg)";
-      if (clientSurname.value && clientName.value && clientLastName.value) {
-        for (const item of validateArr) {
-          item.textContent = "";
-        }
-      }
-    };
-  };
-  onInputValue(clientSurname);
-  onInputValue(clientName);
-  onInputValue(clientLastName);
-
-  const checkRequiredName = (input, message, name) => {
-    if (!input.value) {
-      input.style.borderColor = "var(--color-del-contact-hover)";
-      message.textContent = `Введите ${name} клиента!`;
-      return false;
-    } else {
-      message.textContent = "";
-    }
-
-    return true;
-  };
-
-  const checkByRegexp = (input, regexp) => {
+  const checkByRegexp = (input, regexp, message) => {
     if (regexp.test(input.value.trim())) {
       input.style.borderColor = "var(--color-del-contact-hover)";
-      unacceptableLetter.textContent = `Недопустимые символы!`;
+      unacceptableLetter.textContent = `Недопустимые символы в ${message}!`;
       return false;
     }
     return true;
   };
 
-  if (!checkRequiredName(clientSurname, writeSurname, "Фамилию")) {
+  if (!checkByRegexp(clientSurname, regexp, "поле 'Фамилия'")) {
     return false;
   }
-  if (!checkRequiredName(clientName, writeName, "Имя")) {
+  if (!checkByRegexp(clientName, regexp, "поле 'Имя'")) {
     return false;
   }
-  if (!checkRequiredName(clientLastName, writeLastName, "Отчество")) {
+  if (!checkByRegexp(clientLastName, regexp, "поле 'Отчество'")) {
     return false;
   }
-  if (!checkByRegexp(clientSurname, regexp)) {
-    return false;
-  }
-  if (!checkByRegexp(clientName, regexp)) {
-    return false;
-  }
-  if (!checkByRegexp(clientLastName, regexp)) {
-    return false;
-  }
+  unacceptableLetter.innerHTML = "";
 
   return true;
 };

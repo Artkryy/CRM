@@ -1,7 +1,12 @@
 import { createModalDelete } from "./createModalDelete.js";
 import { createEditClientModal } from "./editClientModal.js";
 import { svgLoadSpinner } from "./svg.js";
-import { formatDate, formatTime, createContactItemByType } from "./utils.js";
+import {
+  formatDate,
+  formatTime,
+  createContactItemByType,
+  createMoreBtn,
+} from "./utils.js";
 
 export const createClientItem = (oneClient) => {
   const $oneClientRow = document.createElement("tr"),
@@ -64,22 +69,38 @@ export const createClientItem = (oneClient) => {
     createContactItemByType(contact.type, contact.value, $oneClientContacts);
   }
 
+  const clientContacts = $oneClientContacts.querySelectorAll(".contact__link");
+  const contactsArr = [...clientContacts];
+
+  const checkContactsLength = (contactsElems) => {
+    if (contactsElems.length > 4) {
+      const hiddenContacts = contactsElems.slice(4);
+      hiddenContacts.forEach((item) => item.classList.add("contacts__hide"));
+      const moreBtn = createMoreBtn(hiddenContacts.length);
+      $oneClientContacts.append(moreBtn);
+
+      moreBtn.addEventListener("click", () => {
+        hiddenContacts.forEach((item) =>
+          item.classList.remove("contacts__hide")
+        );
+        moreBtn.remove();
+      });
+    }
+  };
+  checkContactsLength(contactsArr);
+
   const deleteById = () => {
     import("./API.js").then(({ serverDeleteClient }) => {
       deleteClient.$modalDeleteBtn.addEventListener("click", () => {
         try {
           deleteClient.$loadSpinner.style.display = "block";
-          setTimeout(() => {
-            serverDeleteClient(oneClient.id);
-            document.getElementById(oneClient.id).remove();
-            deleteClient.$deleteModal.remove();
-          }, 500);
+          serverDeleteClient(oneClient.id);
+          document.getElementById(oneClient.id).remove();
+          deleteClient.$deleteModal.remove();
         } catch (error) {
           console.log(error);
         } finally {
-          setTimeout(() => {
-            deleteClient.$loadSpinner.style.display = "none";
-          }, 500);
+          deleteClient.$loadSpinner.style.display = "none";
         }
       });
     });
@@ -88,22 +109,18 @@ export const createClientItem = (oneClient) => {
   $actionDeleteBtn.addEventListener("click", () => {
     $deleteSpinner.style.display = "block";
     $actionDeleteBtn.classList.add("action-load");
-    setTimeout(() => {
-      deleteById();
-      document.body.append(deleteClient.$deleteModal);
-      $deleteSpinner.style.display = "none";
-      $actionDeleteBtn.classList.remove("action-load");
-    }, 500);
+    deleteById();
+    document.body.append(deleteClient.$deleteModal);
+    $deleteSpinner.style.display = "none";
+    $actionDeleteBtn.classList.remove("action-load");
   });
 
   $actionChangeBtn.addEventListener("click", () => {
     $changeSpinner.style.display = "block";
     $actionChangeBtn.classList.add("action-load");
-    setTimeout(() => {
-      document.body.append(editClient.$editModal);
-      $changeSpinner.style.display = "none";
-      $actionChangeBtn.classList.remove("action-load");
-    }, 500);
+    document.body.append(editClient.$editModal);
+    $changeSpinner.style.display = "none";
+    $actionChangeBtn.classList.remove("action-load");
   });
 
   $oneClientIdTd.append($oneClientId);

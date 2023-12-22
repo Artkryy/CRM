@@ -1,10 +1,9 @@
-import { serverSendClient } from "./API.js";
+import { serverGetClients, serverSendClient } from "./API.js";
 import { createContactsItem } from "./addContacts.js";
 import { createModalDelete } from "./createModalDelete.js";
 import { createClientsModalForm } from "./createModalForm.js";
 import { createClientItem } from "./createClientItem.js";
 import { validateClientForm } from "./createValidateForm.js";
-import { validateClientContact } from "./createValidateContacts.js";
 
 export const createEditClientModal = (oneClient) => {
   const $editModal = document.createElement("div"),
@@ -34,7 +33,8 @@ export const createEditClientModal = (oneClient) => {
     createContact.$contactName.textContent = contact.type;
     createContact.$contactInp.value = contact.value.trim();
 
-    $editCreateForm.$modalContactBlock.prepend(createContact.$contact);
+    $editCreateForm.$modalContactBlock.prepend($editCreateForm.$contactBlock);
+    $editCreateForm.$contactBlock.append(createContact.$contact)
     $editCreateForm.$modalContactBlock.style.backgroundColor =
       "var(--color-contacts-bg-active)";
   }
@@ -58,9 +58,6 @@ export const createEditClientModal = (oneClient) => {
     let contacts = [];
 
     for (let i = 0; i < contactTypes.length; i++) {
-      if (!validateClientContact(contactTypes[i], contactValues[i])) {
-        return;
-      }
       contacts.push({
         type: contactTypes[i].innerHTML,
         value: contactValues[i].value,
@@ -78,20 +75,21 @@ export const createEditClientModal = (oneClient) => {
 
     try {
       spinner.style.display = "block";
+      const сlients = await serverGetClients();
       const edit = await serverSendClient(client, "PATCH", oneClient.id);
-      setTimeout(() => {
-        document.getElementById(edit.id).remove();
-        document
-          .querySelector(".clients__tbody")
-          .append(createClientItem(edit));
-        $editModal.remove();
-      }, 500);
+      if (edit !== null) {
+        const objIndex = сlients.findIndex(
+          (obj) => Number(obj.id) === Number(oneClient.id)
+        );
+        сlients.splice(objIndex, 1, edit);
+        document.getElementById(edit.id).replaceWith(createClientItem(edit));
+      }
+
+      $editModal.remove();
     } catch (error) {
       console.log(error);
     } finally {
-      setTimeout(() => {
-        spinner.style.display = "none";
-      }, 500);
+      spinner.style.display = "none";
     }
   });
 
@@ -105,18 +103,14 @@ export const createEditClientModal = (oneClient) => {
       deleteModal.$modalDeleteBtn.addEventListener("click", () => {
         try {
           deleteModal.$loadSpinner.style.display = "block";
-          setTimeout(() => {
-            serverDeleteClient(oneClient.id);
-            document.getElementById(oneClient.id).remove();
-            deleteModal.$deleteModal.remove();
-            $editModal.remove();
-          }, 500);
+          serverDeleteClient(oneClient.id);
+          document.getElementById(oneClient.id).remove();
+          deleteModal.$deleteModal.remove();
+          $editModal.remove();
         } catch (error) {
           console.log(error);
         } finally {
-          setTimeout(() => {
-            deleteModal.$loadSpinner.style.display = "none";
-          }, 500);
+          deleteModal.$loadSpinner.style.display = "none";
         }
       });
     });

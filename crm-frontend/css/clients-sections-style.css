@@ -1,11 +1,12 @@
 .clients {
-  padding-bottom: 115px;
+  padding-top: 80px;
+  padding-bottom: 110px;
 }
 
 .clients__title {
   margin: 0;
   margin-bottom: 26px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -14,15 +15,47 @@
   flex-direction: column;
 }
 
+.clients__tbody-wrapper {
+  max-height: 375px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.clients__tbody-wrapper::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--color-white);
+}
+
+.clients__tbody-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-heliotrope);
+  border-radius: 20px;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .25) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, .25) 50%,
+      rgba(255, 255, 255, .25) 75%,
+      transparent 75%,
+      transparent);
+}
+
+.clients__tbody-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+  border-radius: 20px;
+  background-color: var(--body-bg-color);
+}
+
 .clients__tbody {
-  position: relative;
-  min-height: 300px;
+  display: table;
+  width: 100%;
 }
 
 .display-info {
   display: flex;
-  margin-bottom: 8px;
+  margin: -2px -2px 0px -2px;
+  padding-bottom: 12px;
   padding-left: 20px;
+  background-color: var(--body-bg-color);
 }
 
 .display-info__item {
@@ -61,30 +94,38 @@
 }
 
 .display-info__item--name {
-  padding-left: 60px;
+  padding-left: 35px;
   background-position: right 16px center;
 }
 
 .display-info__item--create {
   position: relative;
-  padding-left: 195px;
+  padding-left: 35px;
+  padding-right: 0;
 }
 
 .display-info__item--create::before {
   content: 'создания';
   position: absolute;
   margin-right: 13px;
+  top: 75%;
+  right: 12px;
+  transform: none;
 }
 
 .display-info__item--change {
   position: relative;
-  padding-left: 25px;
+  padding-left: 15px;
+  padding-right: 0;
 }
 
 .display-info__item--change::before {
   content: 'изменения';
   position: absolute;
   margin-right: 13px;
+  top: 75%;
+  right: -13px;
+  transform: none;
 }
 
 .display-info__item--contacts {
@@ -127,11 +168,21 @@
 .change__span {
   position: absolute;
   display: inline-block;
+  top: 75%;
   width: 12px;
   height: 100%;
+  transform: none;
   background-image: url('../img/arrow-down.svg');
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.change__span {
+  right: -13px;
+}
+
+.create__span {
+  right: 12px;
 }
 
 .sort-up,
@@ -151,5 +202,3 @@
 .display-info__item--create {
   background-image: none;
 }
-
-

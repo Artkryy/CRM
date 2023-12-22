@@ -36,6 +36,7 @@ export const createContactsItem = () => {
   $contactDelTool.textContent = "Удалить контакт";
 
   $contactInp.placeholder = "Введите данные контакта";
+  $contactInp.id = 'contacts'
   $contactDel.innerHTML = svgContactDel;
 
   $contactDel.addEventListener("click", (e) => {

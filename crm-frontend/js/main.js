@@ -23,7 +23,7 @@ const clientsApp = async () => {
   } catch (error) {
     console.log(error);
   } finally {
-    setTimeout(() => preloader.remove(), 500);
+    preloader.remove()
   }
 };
 
