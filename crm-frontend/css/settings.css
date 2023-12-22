@@ -66,6 +66,7 @@ img {
 
 body {
   font-family: 'Open-Sans', sans-serif;
+  min-width: 320px;
   font-size: 14px;
   line-height: normal;
   background: var(--body-bg-color);
@@ -73,7 +74,7 @@ body {
 }
 
 .container {
-  max-width: 1216px;
+  max-width: 1218px;
   margin: 0 auto;
   padding: 0 15px;
 }
@@ -129,10 +130,11 @@ body {
 }
 
 .modal__content-active {
+  margin: 100px auto;
+  padding: 10px 10px;
+  max-width: 300px;
   cursor: auto;
   box-shadow: 0 0 35px rgba(0, 0, 0, 0.20);
   background-color: var(--color-white);
   opacity: 0;
 }
-
-

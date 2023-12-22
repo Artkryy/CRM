@@ -1,5 +1,6 @@
-import { serverFindClient } from "./API.js";
 import { createClientItem } from "./createClientItem.js";
+
+const SET_TIMEOUT_BG = 1500;
 
 export const searchClients = (clients) => {
   const $findList = document.querySelector(".header__find-list"),
@@ -13,29 +14,27 @@ export const searchClients = (clients) => {
     $findLink.classList.add("find-list__link");
 
     $findLink.textContent = `${client.surname} ${client.name} ${client.lastName}`;
-    $findLink.href = "#";
+    $findLink.href = `#${client.id}`;
+
+    $findLink.addEventListener("click", () => {
+      const clientRow = document.getElementById(client.id);
+      clientRow.style.backgroundColor = "var(--color-contacts-bg-active)";
+      setTimeout(() => {
+        clientRow.style.backgroundColor = "var(--color-white)";
+      }, SET_TIMEOUT_BG);
+      $input.value = "";
+      $findList.classList.add("invisible");
+    });
 
     $findItem.append($findLink);
     $findList.append($findItem);
   });
 
-  const redrawingTable = async (str) => {
-    const response = await serverFindClient(str);
-    const $tbody = document.querySelector(".clients__tbody");
-    $tbody.innerHTML = "";
-
-    for (const client of response) {
-      $tbody.append(createClientItem(client));
-    }
-  };
-
-  $input.addEventListener("input", async () => {
+  $input.addEventListener("input", () => {
     const value = $input.value.trim();
     const foundItem = document.querySelectorAll(".find-list__link");
 
     if (value !== "") {
-      redrawingTable(value);
-
       foundItem.forEach((link) => {
         if (link.innerText.search(value) == -1) {
           link.classList.add("invisible");
@@ -43,21 +42,25 @@ export const searchClients = (clients) => {
         } else {
           link.classList.remove("invisible");
           $findList.classList.remove("invisible");
-          const str = link.innerText
-          link.innerHTML = textSelection(str, link.innerText.search(value), value.length)
+          const str = link.innerText;
+          link.innerHTML = textSelection(
+            str,
+            link.innerText.search(value),
+            value.length
+          );
         }
       });
     } else {
-      foundItem.forEach(link => {
-        const $tbody = document.querySelector('.clients__tbody')
-        $tbody.innerHTML = ''
+      foundItem.forEach((link) => {
+        const $tbody = document.querySelector(".clients__tbody");
+        $tbody.innerHTML = "";
 
-        clients.forEach(client => $tbody.append(createClientItem(client)))
+        clients.forEach((client) => $tbody.append(createClientItem(client)));
 
-        link.classList.remove('invisible')
-        $findList.classList.add('invisible')
-        link.innerHTML = link.innerText
-      })
+        link.classList.remove("invisible");
+        $findList.classList.add("invisible");
+        link.innerHTML = link.innerText;
+      });
     }
   });
 

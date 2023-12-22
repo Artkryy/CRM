@@ -33,30 +33,40 @@ export const formatTime = (date) => {
   return result;
 };
 
+export const createMoreBtn = (num) => {
+  const $moreBtn = document.createElement("button");
+
+  $moreBtn.classList.add('contacts__more-btn', 'btn-reset')
+
+  $moreBtn.textContent = `+${num}`;
+
+  return $moreBtn;
+};
+
 function createContactIconLink(type, value, element, svg, item) {
   element = document.createElement("a");
   element.classList.add("contact__link");
   element.innerHTML = svg;
 
-  const $setTooltip = contactTooltip(type, value)
+  const $setTooltip = contactTooltip(type, value);
 
   if (type === "Email") {
     element.href = `mailto:${value.trim()}`;
   } else if (type === "Телефон") {
     element.href = `tel:${value.trim()}`;
-    $setTooltip.$tooltipType.style.display = 'none'
-    $setTooltip.$tooltipValue.style.color = 'var(--color-white)'
-    $setTooltip.$tooltipValue.style.textDecoration = 'none'
-  } else if (type === 'Доп. Телефон') {
+    $setTooltip.$tooltipType.style.display = "none";
+    $setTooltip.$tooltipValue.style.color = "var(--color-white)";
+    $setTooltip.$tooltipValue.style.textDecoration = "none";
+  } else if (type === "Доп. Телефон") {
     element.href = `tel:${value.trim()}`;
-    $setTooltip.$tooltipType.style.display = 'none'
-    $setTooltip.$tooltipValue.style.color = 'var(--color-white)'
-    $setTooltip.$tooltipValue.style.textDecoration = 'none'
+    $setTooltip.$tooltipType.style.display = "none";
+    $setTooltip.$tooltipValue.style.color = "var(--color-white)";
+    $setTooltip.$tooltipValue.style.textDecoration = "none";
   } else {
     element.href = value.trim();
   }
 
-  element.append($setTooltip.$tooltip)
+  element.append($setTooltip.$tooltip);
   item.append(element);
 }
 

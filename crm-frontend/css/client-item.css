@@ -1,6 +1,39 @@
-.clients__table {
-  width: 100%;
+.clients__table-wrapper {
+  position: relative;
   margin-bottom: 40px;
+  min-height: 320px;
+  overflow: auto;
+  background-color: var(--color-white);
+}
+
+.clients__table-wrapper::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: var(--color-white);
+}
+
+.clients__table-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-heliotrope);
+  border-radius: 20px;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .25) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, .25) 50%,
+      rgba(255, 255, 255, .25) 75%,
+      transparent 75%,
+      transparent);
+}
+
+.clients__table-wrapper::-webkit-scrollbar-track {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+  border-radius: 20px;
+  background-color: var(--body-bg-color);
+}
+
+.clients__table {
+  min-width: 728px;
+  width: 100%;
+  height: 100%;
 }
 
 .clients__item {
@@ -8,6 +41,7 @@
   padding: 18px;
   border-bottom: 1px solid var(--color-contacts-bg);
   background-color: var(--color-white);
+  transition: background-color .2s ease-in-out;
 }
 
 .client__id {
@@ -24,7 +58,7 @@
   align-items: center;
   flex-wrap: wrap;
   margin-right: 10px;
-  width: 32%;
+  width: 35%;
   font-size: 14px;
   color: var(--color-black333);
 }
@@ -38,11 +72,15 @@
 }
 
 .clients__created {
+  display: flex;
+  flex-direction: column;
   margin-right: 10px;
   width: 15%;
 }
 
 .clients__updated {
+  display: flex;
+  flex-direction: column;
   margin-right: 10px;
   width: 15%;
 }
@@ -92,7 +130,10 @@
 
 .clients__actions {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 13%;
 }
 
 .clients__actions button {
@@ -108,6 +149,7 @@
 
 .clients__edit {
   position: relative;
+  margin: 0;
   margin-right: 32px;
   background-image: url('../img/change-pic.svg');
   transition: color .3s ease-in-out;

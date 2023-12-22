@@ -17,19 +17,16 @@ export const createClientsModalForm = () => {
     $changeLastNameLabel = document.createElement("label"),
     $changeLastNameInp = document.createElement("input"),
     $modalContactBlock = document.createElement("div"),
+    $contactBlock = document.createElement("div"),
     $addContactBtn = document.createElement("button"),
     $addContactBtnSvgDef = document.createElement("span"),
     $addContactBtnSvgHov = document.createElement("span"),
     $wrapBtn = document.createElement("div"),
     $saveBtn = document.createElement("button"),
     $cancelBtn = document.createElement("button"),
-    $errorBlock = document.createElement("p"),
+    $errorBlock = document.createElement("div"),
     $unacceptableLetter = document.createElement("span"),
-    $writeSurname = document.createElement("span"),
-    $writeName = document.createElement("span"),
-    $writeLastName = document.createElement("span"),
-    $requiredValue = document.createElement("span"),
-    $requiredContacts = document.createElement("span"),
+    $writeValue = document.createElement("span"),
     $loadSpinner = document.createElement("span");
 
   $loadSpinner.classList.add("modal__spinner");
@@ -46,6 +43,7 @@ export const createClientsModalForm = () => {
   $changeLastNameLabel.classList.add("form__modal-label");
   $changeLastNameInp.classList.add("form__lastName-inp", "modal-inp");
   $modalContactBlock.classList.add("modal__contact-block");
+  $contactBlock.classList.add("modal__contacts");
   $addContactBtn.classList.add(
     "btn-reset",
     "form__add-contact-btn",
@@ -62,20 +60,20 @@ export const createClientsModalForm = () => {
   $cancelBtn.classList.add("form__cancel-btn", "btn-reset");
 
   $formChange.id = "change-form";
-  $changeSurnameInp.id = "formFloatSurname";
+  $changeSurnameInp.id = "surname";
   $changeSurnameInp.placeholder = "Фамилия";
-  $changeNameInp.id = "formFloatName";
+  $changeNameInp.id = "name";
   $changeNameInp.placeholder = "Имя";
-  $changeLastNameInp.id = "formFloatLastName";
+  $changeLastNameInp.id = "lastName";
   $changeLastNameInp.placeholder = "Отчество";
 
   $changeTitle.textContent = "Новый клиент";
   $changeSurnameLabel.textContent = "Фамилия";
   $changeNameLabel.textContent = "Имя";
   $changeLastNameLabel.textContent = "Отчество";
-  $changeSurnameLabel.for = "formFloatSurname";
-  $changeNameLabel.for = "formFloatName";
-  $changeLastNameLabel.for = "formFloatLastName";
+  $changeSurnameLabel.for = "surname";
+  $changeNameLabel.for = "name";
+  $changeLastNameLabel.for = "lastName";
 
   $requaredSurname.textContent = "*";
   $requaredName.textContent = "*";
@@ -95,11 +93,7 @@ export const createClientsModalForm = () => {
 
   $errorBlock.classList.add("modal__error");
   $unacceptableLetter.id = "unacceptableLetter";
-  $writeSurname.id = "writeSurname";
-  $writeName.id = "writeName";
-  $writeLastName.id = "writeLastName";
-  $requiredValue.id = "requiredValue";
-  $requiredContacts.id = "requiredContacts";
+  $writeValue.id = "writeValue";
 
   $addContactBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -107,12 +101,13 @@ export const createClientsModalForm = () => {
 
     if (contactsItems.length < 9) {
       const contactItem = createContactsItem();
-      $modalContactBlock.prepend(contactItem.$contact);
+      $modalContactBlock.prepend($contactBlock);
+      $contactBlock.append(contactItem.$contact);
       $modalContactBlock.style.backgroundColor =
         "var(--color-contacts-bg-active)";
     } else {
       const contactItem = createContactsItem();
-      $modalContactBlock.prepend(contactItem.$contact);
+      $modalContactBlock.append(contactItem.$contact);
       $addContactBtn.classList.remove("form__add-contact-btn--active");
     }
   });
@@ -129,20 +124,13 @@ export const createClientsModalForm = () => {
 
   $changeSurnameLabel.append($requaredSurname);
   $changeNameLabel.append($requaredName);
-  $saveBtn.prepend($loadSpinner)
+  $saveBtn.prepend($loadSpinner);
   $formFloatSurname.append($changeSurnameInp, $changeSurnameLabel);
   $formFloatName.append($changeNameInp, $changeNameLabel);
   $formFloatLastName.append($changeLastNameInp, $changeLastNameLabel);
   $addContactBtn.append($addContactBtnSvgDef, $addContactBtnSvgHov);
-  $modalContactBlock.append($addContactBtn);
-  $errorBlock.append(
-    $writeSurname,
-    $writeName,
-    $writeLastName,
-    $requiredValue,
-    $unacceptableLetter,
-    $requiredContacts
-  );
+  $modalContactBlock.append($contactBlock, $addContactBtn);
+  $errorBlock.append($writeValue, $unacceptableLetter);
   $wrapBtn.append($saveBtn, $cancelBtn);
   $formChange.append(
     $formFloatSurname,
@@ -157,10 +145,12 @@ export const createClientsModalForm = () => {
     $formChange,
     $changeTitle,
     $modalContactBlock,
+    $contactBlock,
     $changeNameInp,
     $changeSurnameInp,
     $changeLastNameInp,
     $addContactBtn,
+    $errorBlock,
     $saveBtn,
     $cancelBtn,
     $closeChangeWindow,
