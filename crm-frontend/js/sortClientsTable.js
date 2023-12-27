@@ -1,63 +1,80 @@
-export const sortTable = () => {
-  const table = document.querySelector("table"),
-    tableHeaders = table.querySelectorAll("th"),
-    tableBody = table.querySelector("tbody");
+import { serverGetClients } from "./API.js";
+import { createClientItem } from "./createClientItem.js";
 
-  const directions = Array.from(tableHeaders).map(() => "");
+export const sortTable = (clients) => {
+  const table = document.querySelector("table");
+  const tableBody = table.querySelector("tbody");
 
-  const sort = (type, content) => {
-    switch (type) {
-      case "id":
-        return parseFloat(content);
-      case "create":
-      case "update":
-        return content.split(".").reverse().join("-");
-      case "text":
-      default:
-        return content;
+  let sortDirFlag = false;
+
+  const idSort = document.getElementById("head-id");
+  const fullnameSort = document.getElementById("head-fullname");
+  const createSort = document.getElementById("head-create");
+  const updateSort = document.getElementById("head-update");
+
+  const sortArr = (arr, prop) => {
+    const copyArr = arr;
+    const result = copyArr.sort((a, b) => {
+      let direct = a[prop] < b[prop];
+      if (sortDirFlag === true) direct = a[prop] > b[prop];
+      if (direct) return -1;
+    });
+    return result;
+  };
+
+  idSort.addEventListener("click", async () => {
+    sortDirFlag = !sortDirFlag;
+    const clientsArr = await serverGetClients();
+
+    sortArr(clientsArr, "id", sortDirFlag);
+    tableBody.innerHTML = "";
+
+    for (const oneClient of clientsArr) {
+      document
+        .querySelector(".clients__tbody")
+        .append(createClientItem(oneClient));
     }
-  };
+  });
 
-  const sortColumn = (index) => {
-    const type = tableHeaders[index].getAttribute("data-type");
-    const rows = tableBody.querySelectorAll("tr");
-    const direction = directions[index] || "sortUp";
-    const multiply = direction === "sortUp" ? 1 : -1;
-    const newRow = Array.from(rows);
+  fullnameSort.addEventListener("click", async () => {
+    sortDirFlag = !sortDirFlag;
+    const clientsArr = await serverGetClients();
 
-    newRow.sort((row1, row2) => {
-      const cellA = row1.querySelectorAll("td")[index].textContent;
-      const cellB = row2.querySelectorAll("td")[index].textContent;
+    sortArr(clientsArr, "surname", sortDirFlag);
+    tableBody.innerHTML = "";
 
-      const a = sort(type, cellA);
-      const b = sort(type, cellB);
+    for (const oneClient of clientsArr) {
+      document
+        .querySelector(".clients__tbody")
+        .append(createClientItem(oneClient));
+    }
+  });
 
-      switch (true) {
-        case a > b:
-          return 1 * multiply;
-        case a < b:
-          return -1 * multiply;
-        default:
-          break;
-        case a === b:
-          return 0;
-      }
-    });
+  createSort.addEventListener("click", async () => {
+    sortDirFlag = !sortDirFlag;
+    const clientsArr = await serverGetClients();
 
-    [].forEach.call(rows, (row) => {
-      tableBody.removeChild(row)
-    })
+    sortArr(clientsArr, "createdAt", sortDirFlag);
+    tableBody.innerHTML = "";
 
-    directions[index] = direction === 'sortUp' ? 'sortDown' : 'sortUp'
+    for (const oneClient of clientsArr) {
+      document
+        .querySelector(".clients__tbody")
+        .append(createClientItem(oneClient));
+    }
+  });
 
-    newRow.forEach(newRow => {
-      tableBody.appendChild(newRow)
-    })
-  };
+  updateSort.addEventListener("click", async () => {
+    sortDirFlag = !sortDirFlag;
+    const clientsArr = await serverGetClients();
 
-  [].forEach.call(tableHeaders, (header, index) => {
-    header.addEventListener("click", () => {
-      sortColumn(index);
-    });
+    sortArr(clientsArr, "updatedAt", sortDirFlag);
+    tableBody.innerHTML = "";
+
+    for (const oneClient of clientsArr) {
+      document
+        .querySelector(".clients__tbody")
+        .append(createClientItem(oneClient));
+    }
   });
 };

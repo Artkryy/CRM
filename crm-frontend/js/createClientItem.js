@@ -1,3 +1,4 @@
+import { serverGetClients } from "./API.js";
 import { createModalDelete } from "./createModalDelete.js";
 import { createEditClientModal } from "./editClientModal.js";
 import { svgLoadSpinner } from "./svg.js";
@@ -52,7 +53,7 @@ export const createClientItem = (oneClient) => {
   $changeSpinner.classList.add("actions__spinner", "actions__spinner--change");
   $deleteSpinner.classList.add("actions__spinner", "actions__spinner--delete");
 
-  $oneClientId.textContent = oneClient.id.substr(7, 13);
+  $oneClientId.textContent = oneClient.id.substr(1, 6);
   $oneClientSurname.textContent = oneClient.surname;
   $oneClientName.textContent = oneClient.name;
   $oneClientLastName.textContent = oneClient.lastName;
