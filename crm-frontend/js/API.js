@@ -35,8 +35,7 @@ export const serverSendClient = async (client, method, id = null) => {
         .append(createClientItem(result));
       document.getElementById("add-modal").remove();
     }
-    const form = document.querySelector(".modal-active");
-    const modalInputs = form.querySelectorAll("input");
+    const modalInputs = document.querySelectorAll("input");
     showErrorsMessages(modalInputs, result.errors);
 
     return result;
@@ -62,6 +61,7 @@ export const serverFindClient = async (value) => {
     });
 
     const result = await response.json();
+    console.log(result);
 
     return result;
   } catch (error) {

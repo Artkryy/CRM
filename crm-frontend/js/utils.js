@@ -36,7 +36,7 @@ export const formatTime = (date) => {
 export const createMoreBtn = (num) => {
   const $moreBtn = document.createElement("button");
 
-  $moreBtn.classList.add('contacts__more-btn', 'btn-reset')
+  $moreBtn.classList.add("contacts__more-btn", "btn-reset");
 
   $moreBtn.textContent = `+${num}`;
 
@@ -101,3 +101,19 @@ export const createContactItemByType = (type, value, item) => {
       break;
   }
 };
+
+export const debounce = (calle, timeout) => {
+  return function perform(...args) {
+    let previousCall = this.lastCall;
+
+    this.lastCall = Date.now();
+
+    if (previousCall && this.lastCall - previousCall <= timeout) {
+      clearTimeout(this.lastCallTimer);
+    }
+
+    this.lastCallTimer = setTimeout(() => calle(...args), timeout);
+  };
+};
+
+

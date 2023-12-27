@@ -104,10 +104,10 @@ export const createClientsSection = () => {
   $createSpan.classList.add("create__span");
   $editSpan.classList.add("change__span");
 
-  $sortingTableHeadId.setAttribute("data-type", "id");
-  $sortingTableHeadName.setAttribute("data-type", "text");
-  $sortingTableHeadCreate.setAttribute("data-type", "create");
-  $sortingTableHeadEdit.setAttribute("data-type", "update");
+  $sortingTableHeadId.id = "head-id";
+  $sortingTableHeadName.id = "head-fullname";
+  $sortingTableHeadCreate.id = "head-create";
+  $sortingTableHeadEdit.id = "head-update";
 
   $title.textContent = "Клиенты";
   $sortingTableHeadId.textContent = "id";

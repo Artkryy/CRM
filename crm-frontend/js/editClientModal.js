@@ -20,7 +20,7 @@ export const createEditClientModal = (oneClient) => {
   );
 
   $editCreateForm.$changeTitle.textContent = "Изменить данные";
-  $editClientId.textContent = "ID: " + oneClient.id.substr(7, 13);
+  $editClientId.textContent = "ID: " + oneClient.id.substr(1, 6);
   $editCreateForm.$cancelBtn.textContent = "Удалить клиента";
 
   $editCreateForm.$changeNameInp.value = oneClient.name;

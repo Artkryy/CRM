@@ -14,11 +14,12 @@ const clientsApp = async () => {
   try {
     const clients = await serverGetClients();
     searchClients(clients);
+    sortTable(clients)
 
     for (const oneClient of clients) {
       document
-        .querySelector(".clients__tbody")
-        .append(createClientItem(oneClient));
+      .querySelector(".clients__tbody")
+      .append(createClientItem(oneClient));
     }
   } catch (error) {
     console.log(error);
@@ -28,4 +29,3 @@ const clientsApp = async () => {
 };
 
 clientsApp();
-document.addEventListener("DOMContentLoaded", sortTable);
