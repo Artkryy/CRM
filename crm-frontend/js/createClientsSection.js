@@ -20,7 +20,6 @@ export const createClientsSection = () => {
     $sortingTableHeadSpan = document.createElement("span"),
     $addClientBtn = document.createElement("button"),
     $addClientBtnSvg = document.createElement("span"),
-    $wrapperTbody = document.createElement("div"),
     $tableBody = document.createElement("tbody"),
     $createSpan = document.createElement("span"),
     $editSpan = document.createElement("span");
@@ -66,7 +65,7 @@ export const createClientsSection = () => {
   $title.classList.add("clients__title");
   $tableWrapper.classList.add("clients__table-wrapper");
   $clientsTable.classList.add("clients__table");
-  $theadTr.classList.add('display-info__row')
+  $theadTr.classList.add("display-info__row");
   $sortingTableHead.classList.add("clients-display", "display-info");
   $sortingTableHeadId.classList.add(
     "display-info__item",
@@ -97,7 +96,6 @@ export const createClientsSection = () => {
     "display-info__item--actions"
   );
   $sortingTableHeadSpan.classList.add("display-info__sorting");
-  $wrapperTbody.classList.add("clients__tbody-wrapper");
   $tableBody.classList.add("clients__tbody");
   $addClientBtn.classList.add("clients__btn", "btn-reset");
   $addClientBtnSvg.classList.add("clients__svg");
@@ -139,8 +137,7 @@ export const createClientsSection = () => {
   );
   $sortingTableHead.append($theadTr);
   $tableWrapper.append($clientsTable);
-  $wrapperTbody.append($tableBody)
-  $clientsTable.append($sortingTableHead, $wrapperTbody);
+  $clientsTable.append($sortingTableHead, $tableBody);
   $tableBody.append(createPreloader());
   $addClientBtn.prepend($addClientBtnSvg);
   $container.append($title, $tableWrapper, $addClientBtn);
