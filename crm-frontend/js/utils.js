@@ -116,4 +116,16 @@ export const debounce = (calle, timeout) => {
   };
 };
 
+export const skrollTable = () => {
+  const INDEX_TRIGGER_SIZE = 50;
+  const wrapTable = document.querySelector(".clients__table-wrapper");
+  const headTableInfo = wrapTable.querySelector(".display-info");
 
+  wrapTable.addEventListener("scroll", () => {
+    if (headTableInfo.offsetTop > INDEX_TRIGGER_SIZE) {
+      headTableInfo.style.zIndex = "3";
+    } else {
+      headTableInfo.style = "";
+    }
+  });
+};

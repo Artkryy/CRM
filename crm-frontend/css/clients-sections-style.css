@@ -15,13 +15,6 @@
   flex-direction: column;
 }
 
-.clients__tbody-wrapper {
-  max-height: 375px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
 .clients__tbody-wrapper::-webkit-scrollbar {
   width: 5px;
   background-color: var(--color-white);
@@ -51,8 +44,11 @@
 }
 
 .display-info {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
-  margin: -2px -2px 0px -2px;
+  margin: -2px 0px 0px -2px;
   padding-bottom: 12px;
   padding-left: 20px;
   background-color: var(--body-bg-color);
